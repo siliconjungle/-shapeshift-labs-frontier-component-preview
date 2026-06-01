@@ -1,6 +1,6 @@
 {
   "name": "@shapeshift-labs/frontier-component-preview",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Frontier-native component preview books, generated preview manifests, Vite integration, and harness evidence for Frontier apps.",
   "type": "module",
   "license": "MIT",
@@ -16,7 +16,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "frontier-preview": "./dist/cli.js"
+    "frontier-preview": "dist/cli.js"
   },
   "exports": {
     ".": {
