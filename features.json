@@ -1,0 +1,17 @@
+{
+  "package": "@shapeshift-labs/frontier-component-preview",
+  "features": [
+    {
+      "id": "frontier-component-preview-package",
+      "title": "Frontier component preview package",
+      "surfaces": [
+        "preview manifest",
+        "filesystem discovery",
+        "Vite plugin",
+        "browser preview book",
+        "harness plan",
+        "CLI"
+      ]
+    }
+  ]
+}
