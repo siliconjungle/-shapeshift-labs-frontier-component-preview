@@ -138,6 +138,10 @@ try {
   const cliPath = path.resolve('dist/cli.js');
   const cliOutput = execFileSync(process.execPath, [cliPath, 'discover', '--cwd', tmp, '--json'], { encoding: 'utf8' });
   assert.ok(JSON.parse(cliOutput).manifest.entries.length >= 2);
+  const cliLink = path.join(tmp, 'frontier-preview');
+  fs.symlinkSync(cliPath, cliLink);
+  const cliHelp = execFileSync(cliLink, ['--help'], { encoding: 'utf8' });
+  assert.ok(cliHelp.includes('Commands:'));
 } finally {
   fs.rmSync(tmp, { recursive: true, force: true });
 }

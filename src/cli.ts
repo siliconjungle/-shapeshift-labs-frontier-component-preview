@@ -1,8 +1,9 @@
 #!/usr/bin/env node
+import { realpathSync } from 'node:fs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { performance } from 'node:perf_hooks';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { renderPreviewBookHtml } from './browser.js';
 import {
   discoverFrontierPreviews,
@@ -32,11 +33,24 @@ interface CliArgs {
   integrations: FrontierPreviewIntegrationFlags;
 }
 
-if (import.meta.url === pathToFileURL(process.argv[1] || '').href) {
+if (isCliEntrypoint()) {
   main(process.argv.slice(2)).catch((error) => {
     console.error(error instanceof Error ? error.message : String(error));
     process.exitCode = 1;
   });
+}
+
+function isCliEntrypoint(): boolean {
+  const entry = process.argv[1];
+  if (!entry) return false;
+  const modulePath = fileURLToPath(import.meta.url);
+  let entryPath = entry;
+  try {
+    entryPath = realpathSync(entry);
+  } catch {
+    entryPath = path.resolve(entry);
+  }
+  return path.resolve(entryPath) === path.resolve(modulePath);
 }
 
 export async function main(argv: string[]): Promise<void> {
